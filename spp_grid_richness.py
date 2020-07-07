@@ -1,12 +1,12 @@
 import pandas as pd
 import geopandas as gpd
 
-# read in csv files, renaming columns to be used
+# read in csv files, renaming columns to be used where needed
 df = pd.read_csv("spp_points.csv",encoding='latin-1')
 df = df.rename(columns={'Sample Spatial Reference':'osgr',
                        'Recommended Taxon Name/Attribute':'taxon'})
 
-#function to assign spatial precision related to len of osgr
+#assigns spatial precision related to len of osgr
 def func(row):
     if len(row['osgr']) == 12:
         return 1
@@ -21,7 +21,7 @@ def func(row):
     elif len(row['osgr']) == 2:
         return 100000
 
-# corrects easting northing to centre of grid ref, removes any 2 or 0 figure osgr's
+# corrects easting northing to centre of grid ref, removes any 2 or 0 figure osgr's using func
 df['precision'] = df.apply(func,axis=1)
 df = df[df.precision <= 1000] 
 df['midpoint'] = df['precision']/2.0
