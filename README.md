@@ -1,2 +1,4 @@
 # species_mapping
-A short script taking a csv file of species presence points and mapping diversity at 2km grid scale
+Processes a csv file of species presence points and creates species presence/absence matrix against predfined boundary area.
+
+Requires a species input file and grid/boundary files.
