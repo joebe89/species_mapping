@@ -2,7 +2,7 @@ import pandas as pd
 import geopandas as gpd
 
 # read in csv files, renaming columns to be used
-df = pd.read_csv("rainforest_lichen.csv",encoding='latin-1')
+df = pd.read_csv("spp_points.csv",encoding='latin-1')
 df = df.rename(columns={'Sample Spatial Reference':'osgr',
                        'Recommended Taxon Name/Attribute':'taxon'})
 
@@ -34,7 +34,7 @@ spp_point = gpd.GeoDataFrame(
 spp_point.crs = "EPSG:27700"
 
 # reads in grid and performs spatial join with geodataframe
-grid = gpd.read_file("no_zoo.gpkg")
+grid = gpd.read_file("grid.gpkg")
 grid_merge = gpd.sjoin(grid,spp_point,how='left',op='contains')
 
 # creates cross_tab with grid_id and taxon, clipping to max of 1 to create binary 0/1 grid
